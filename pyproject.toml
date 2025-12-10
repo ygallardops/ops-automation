@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ops-automation"
+version = "0.1.0"
+description = "Suite de automatizacion de operaciones y mantenimiento"
+requires-python = ">=3.9"
+dependencies = [
+    "boto3",
+    "azure-identity",
+    "azure-mgmt-compute",
+    "requests",
+    "PyYAML",
+]
+
+# --- Configuracion de herramientas ---
+
+# Black (Formato)
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+# Isort (Imports)
+[tool.isort]
+profile = "black"
+line_length = 88
+
+# Pytest (Tests)
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

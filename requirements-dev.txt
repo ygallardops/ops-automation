@@ -1,0 +1,11 @@
+# Testing
+pytest>=8.0.0
+
+# Calidad de codigo (Linters & Formatters)
+black>=24.0.0       # Formateador automatico
+isort>=5.13.0       # Ordena los imports
+flake8>=7.0.0       # Busca errores de estilo
+
+# Documentacion
+mkdocs-material>=9.5.0
+mkdocstrings[python]>=0.24.0

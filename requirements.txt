@@ -1,0 +1,5 @@
+boto3>=1.34.0       # AWS SDK
+azure-identity>=1.15.0 # Azure Auth
+azure-mgmt-compute>=30.0.0 # Azure Compute SDK
+requests>=2.31.0    # HTTP Requests
+PyYAML>=6.0         # Para leer configs

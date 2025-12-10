@@ -1,0 +1,19 @@
+site_name: Ops Automation Docs
+site_description: Suite de herramientas DevOps centralizada
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.expand
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]  # Le dice a MkDocs donde buscar tu codigo
+
+nav:
+  - Home: index.md
+  - Core Modules:
+      - Logging: reference/logging.md
