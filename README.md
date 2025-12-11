@@ -9,34 +9,46 @@ Biblioteca centralizada de automatización para mantenimiento operativo en Cloud
 
 ## Características
 
-- **Arquitectura Modular:** Separación clara entre lógica de negocio (`src/ops_core`) y scripts de ejecución (`scripts/`).
-- **Cloud Agnostic Design:** Módulos extensibles para AWS y Azure.
-- **Calidad de Código:** Pipeline de CI/CD con GitHub Actions (Linting, Formatting, Unit Testing).
-- **Documentación Viva:** Generación automática de docs técnicos con MkDocs.
-- **Logging Estandarizado:** Trazabilidad completa de ejecuciones.
+- **Arquitectura modular:** Separación clara entre lógica de negocio (`src/ops_core`) y scripts de ejecución (`scripts/`).
+- **Cloud design:** Módulos extensibles para AWS y Azure.
+- **Calidad de código:** Pipeline de CI/CD con GitHub Actions (Linting, Formatting, Unit Testing).
+- **Documentación:** Generación automática de docs técnicos con MkDocs.
+- **Logging:** Trazabilidad completa de ejecuciones.
 
 ## Estructura del proyecto
 
 ```text
 ops-automation/
-├── config/              # Reglas de negocio (YAML/JSON)
-├── docs/                # Documentación del proyecto (MkDocs)
-├── scripts/             # Entrypoints y Wrappers Bash
+├── .github/workflows/      # Pipelines de CI/CD (GitHub Actions)
+├── config/
+│   └── rules.yaml          # Configuración centralizada (Retención, Endpoints)
+├── docs/                   # Documentación técnica (MkDocs)
+├── scripts/                # Interfaz de Ejecución (CLI)
+│   ├── aws-clean.sh        # Wrapper para limpieza de AWS
+│   ├── monitor.sh          # Wrapper para monitoreo de salud
+│   └── ...                 # Scripts internos de Python
 ├── src/
-│   └── ops_core/        # Paquete principal Python
-│       ├── aws/         # Lógica específica de AWS
-│       ├── azure/       # Lógica específica de Azure
-│       ├── common/      # Utilidades (Logging, Config Parser)
-│       └── health/      # Verificaciones de estado
-├── tests/               # Unit Tests (Pytest)
-├── Makefile             # Comandos de gestión del proyecto
-└── pyproject.toml       # Definición de dependencias y herramientas
+│   └── ops_core/           # Lógica de Negocio (Paquete Python)
+│       ├── aws/            # Gestión de recursos AWS
+│       ├── azure/          # Gestión de recursos Azure
+│       ├── common/         # Utilidades transversales (Logging, Config)
+│       └── health/         # Motor de verificaciones HTTP
+├── tests/                  # Tests Unitarios con Mocks (Pytest)
+├── .flake8                 # Configuración de Linter
+├── .pre-commit-config.yaml # Hooks de calidad de código
+├── Makefile                # Comandos de automatización de tareas
+└── pyproject.toml          # Gestión de dependencias moderna
 ```
 ## Quick Start
 
 ### Prerrequisitos
--   Python 3.9+
--   Make (Opcional, pero recomendado)
+
+-   Python 3.9+: Lenguaje base.
+-   Shell Unix/Linux:
+    -   Linux/macOS: Terminal estándar.
+    - Windows: Se requiere Git Bash (recomendado) o WSL para ejecutar los scripts de la carpeta scripts/.
+-   Make (Opcional): Para ejecutar comandos abreviados como make test o make run-aws.
+-   AWS CLI (Opcional): Solo necesario si se desea ejecutar la limpieza contra una cuenta real (no requerido para tests unitarios).
 
 ### Instalación
 
