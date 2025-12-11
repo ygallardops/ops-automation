@@ -1,0 +1,10 @@
+# Detecta automaticamente archivos de texto y normaliza saltos de línea (LF en repo)
+* text=auto
+
+# Forza que scripts de bash siempre tengan salto de línea LF (critico para Docker/Linux)
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Forza archivos de Windows si fuera necesario (opcional)
+*.bat text eol=crlf
+*.cmd text eol=crlf

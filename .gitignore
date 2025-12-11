@@ -33,3 +33,30 @@ htmlcov/
 # Local configuration (secrets)
 config/secrets.yaml
 .env
+
+# Windows thumbnail cache
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Windows Shortcut
+*.lnk
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+*~
+
+# Type Checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Coverage reports (XML format)
+coverage.xml
+*.cover
