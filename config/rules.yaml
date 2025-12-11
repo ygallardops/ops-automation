@@ -4,6 +4,17 @@ aws:
     dry_run: true
     regions:
       - us-east-1
-    # ¡NUEVO! Solo permite correr en estas cuentas (Pon tu ID de AWS real aquí)
+    # ¡NUEVO! Solo permite correr en estas cuentas (Colocar ID de AWS real )
     allowed_account_ids:
       - "123456789012"
+
+monitor:
+  health_checks:
+    timeout_seconds: 5
+    targets:
+      - name: "Google Public DNS"
+        url: "https://dns.google"
+      - name: "HTTPBin (Test API)"
+        url: "https://httpbin.org/get"
+      - name: "Localhost (Fail Test)"
+        url: "http://localhost:9999" # Este falla a proposito para probar el logger
