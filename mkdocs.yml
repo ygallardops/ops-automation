@@ -11,9 +11,14 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [src]  # Le dice a MkDocs donde buscar tu codigo
+          paths: [src]  # Te dice a MkDocs donde buscar tu codigo
 
 nav:
   - Home: index.md
-  - Core Modules:
-      - Logging: reference/logging.md
+  - User Guide:
+      - Configuration: index.md # Si decides expandir el README
+  - Technical Reference:
+      - Core Logging: reference/logging.md
+      - AWS Module: reference/aws.md
+      - Monitoring Module: reference/monitoring.md
+
