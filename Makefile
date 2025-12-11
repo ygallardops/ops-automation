@@ -29,3 +29,13 @@ clean: ## Limpia archivos temporales y caches
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	find . -type d -name ".pytest_cache" -exec rm -rf {} +
 	rm -rf build dist *.egg-info
+
+run-aws: ## Ejecuta la limpieza de snapshots AWS (Wrapper)
+	./scripts/aws-clean.sh
+
+run-monitor: ## Ejecuta el monitoreo de servicios (Wrapper)
+	./scripts/monitor.sh
+
+clean-logs: ## Limpia archivos temporales y logs
+	find . -type f -name "*.log" -delete
+	find . -type d -name "__pycache__" -exec rm -rf {} +
