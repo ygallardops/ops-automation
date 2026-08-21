@@ -9,8 +9,6 @@ description = "Suite de automatizacion de operaciones y mantenimiento"
 requires-python = ">=3.9"
 dependencies = [
     "boto3",
-    "azure-identity",
-    "azure-mgmt-compute",
     "requests",
     "PyYAML",
 ]

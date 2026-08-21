@@ -1,17 +1,19 @@
 # Ops Automation Suite
 
 ![CI Status](https://github.com/ygallardops/ops-automation/actions/workflows/ci.yml/badge.svg)
-![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
+![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-Biblioteca centralizada de automatización para mantenimiento operativo en Cloud (AWS/Azure) y On-Premise. Diseñada con principios de ingeniería de Software: modularidad, idempotencia y testing automatizado.
+> **Laboratorio personal.** Son ejercicios de automatización operativa que escribo para practicar, no una herramienta mantenida ni un entregable profesional. Úsalo como referencia, no en producción.
+
+Ejercicios de automatización para mantenimiento operativo en AWS y On-Premise, organizados como un paquete de Python con tests y CI.
 
 ## Características
 
 - **Arquitectura modular:** Separación clara entre lógica de negocio (`src/ops_core`) y scripts de ejecución (`scripts/`).
-- **Cloud design:** Módulos extensibles para AWS y Azure.
-- **Calidad de código:** Pipeline de CI/CD con GitHub Actions (Linting, Formatting, Unit Testing).
+- **Alcance actual:** Limpieza de snapshots en AWS y verificaciones HTTP de salud. No hay módulo de Azure.
+- **Calidad de código:** CI en GitHub Actions (flake8, black, pytest).
 - **Documentación:** Generación automática de docs técnicos con MkDocs.
 - **Logging:** Trazabilidad completa de ejecuciones.
 
@@ -29,8 +31,7 @@ ops-automation/
 │   └── ...                 # Scripts internos de Python
 ├── src/
 │   └── ops_core/           # Lógica de Negocio (Paquete Python)
-│       ├── aws/            # Gestión de recursos AWS
-│       ├── azure/          # Gestión de recursos Azure
+│       ├── aws/            # Limpieza de snapshots EC2
 │       ├── common/         # Utilidades transversales (Logging, Config)
 │       └── health/         # Motor de verificaciones HTTP
 ├── tests/                  # Tests Unitarios con Mocks (Pytest)
