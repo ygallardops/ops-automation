@@ -21,7 +21,7 @@ PYTHON_SCRIPT="$PROJECT_ROOT/scripts/run_aws_cleanup.py"
 # 3. Validacion del entorno virtual
 if [ ! -d "$VENV_PATH" ]; then
     echo "ERROR: Virtual environment not found at $VENV_PATH"
-    echo "Please run 'make setup' first."
+    echo "Create it with 'python -m venv .venv' and run 'make install'."
     exit 1
 fi
 

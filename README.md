@@ -1,97 +1,74 @@
-# Ops Automation Suite
+# Automatización operativa en Python y Bash
 
-![CI Status](https://github.com/ygallardops/ops-automation/actions/workflows/ci.yml/badge.svg)
-![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
-![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![CI](https://github.com/ygallardops/ops-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/ygallardops/ops-automation/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](pyproject.toml)
+[![Estilo: black](https://img.shields.io/badge/estilo-black-000000.svg)](https://github.com/psf/black)
+[![Licencia MIT](https://img.shields.io/github/license/ygallardops/ops-automation)](LICENSE)
 
 > **Laboratorio personal.** Son ejercicios de automatización operativa que escribo para practicar, no una herramienta mantenida ni un entregable profesional. Úsalo como referencia, no en producción.
 
-Ejercicios de automatización para mantenimiento operativo en AWS y On-Premise, organizados como un paquete de Python con tests y CI.
+Ejercicios de mantenimiento operativo para AWS y servidores on-premises, organizados como un paquete de Python con pruebas y CI.
 
-## Características
+## Qué hace
 
-- **Arquitectura modular:** Separación clara entre lógica de negocio (`src/ops_core`) y scripts de ejecución (`scripts/`).
-- **Alcance actual:** Limpieza de snapshots en AWS y verificaciones HTTP de salud. No hay módulo de Azure.
-- **Calidad de código:** CI en GitHub Actions (flake8, black, pytest).
-- **Documentación:** Generación automática de docs técnicos con MkDocs.
-- **Logging:** Trazabilidad completa de ejecuciones.
+| Tarea | Qué hace | Cómo se ejecuta |
+| --- | --- | --- |
+| Limpieza de snapshots en AWS | Busca los snapshots de EC2 propios de la cuenta que superan la retención configurada. Por defecto solo los lista (`dry_run: true`) y se detiene si la cuenta no está en `allowed_account_ids`; si esa lista está vacía, omite la comprobación con una advertencia. | `make run-aws` |
+| Verificación de salud HTTP | Consulta una lista de URL y registra cuáles responden y cuáles no. | `make run-monitor` |
 
-## Estructura del proyecto
+Ambas tareas leen su configuración de [`config/rules.yaml`](config/rules.yaml) y escriben logs con un formato uniforme: fecha, nivel, módulo y mensaje. No hay módulo de Azure.
+
+## Estructura
+
+La lógica vive en un paquete de Python (`src/ops_core`) y los scripts de `scripts/` solo la invocan.
 
 ```text
 ops-automation/
-├── .github/workflows/      # Pipelines de CI/CD (GitHub Actions)
-├── config/
-│   └── rules.yaml          # Configuración centralizada (Retención, Endpoints)
-├── docs/                   # Documentación técnica (MkDocs)
-├── scripts/                # Interfaz de Ejecución (CLI)
-│   ├── aws-clean.sh        # Wrapper para limpieza de AWS
-│   ├── monitor.sh          # Wrapper para monitoreo de salud
-│   └── ...                 # Scripts internos de Python
-├── src/
-│   └── ops_core/           # Lógica de Negocio (Paquete Python)
-│       ├── aws/            # Limpieza de snapshots EC2
-│       ├── common/         # Utilidades transversales (Logging, Config)
-│       └── health/         # Motor de verificaciones HTTP
-├── tests/                  # Tests Unitarios con Mocks (Pytest)
-├── .flake8                 # Configuración de Linter
-├── .pre-commit-config.yaml # Hooks de calidad de código
-├── Makefile                # Comandos de automatización de tareas
-└── pyproject.toml          # Gestión de dependencias moderna
+├── config/rules.yaml        # Retención, regiones, cuentas permitidas y URL a verificar
+├── docs/                    # Documentación técnica (MkDocs)
+├── scripts/                 # Scripts de Bash que preparan el entorno y llaman a Python
+├── src/ops_core/
+│   ├── aws/                 # Limpieza de snapshots de EC2
+│   ├── common/              # Configuración y logging
+│   └── health/              # Verificaciones HTTP
+├── tests/                   # Pruebas unitarias con mocks (pytest)
+├── Makefile                 # Atajos: install, test, lint, format, run-aws, run-monitor
+└── pyproject.toml           # Paquete y configuración de herramientas
 ```
-## Quick Start
 
-### Prerrequisitos
+## Inicio rápido
 
--   Python 3.9+: Lenguaje base.
--   Shell Unix/Linux:
-    -   Linux/macOS: Terminal estándar.
-    - Windows: Se requiere Git Bash (recomendado) o WSL para ejecutar los scripts de la carpeta scripts/.
--   Make (Opcional): Para ejecutar comandos abreviados como make test o make run-aws.
--   AWS CLI (Opcional): Solo necesario si se desea ejecutar la limpieza contra una cuenta real (no requerido para tests unitarios).
+Requisitos: Python 3.9 o superior (el CI prueba con 3.10) y una terminal Bash. En Windows, usa Git Bash o WSL. Make es opcional; la AWS CLI solo hace falta para ejecutar la limpieza contra una cuenta real, no para las pruebas.
 
-### Instalación
-
-Clonar el repositorio:
-
-``` bash
+```bash
 git clone https://github.com/ygallardops/ops-automation.git
 cd ops-automation
-```
-
-Configurar entorno:
-
-``` bash
-# Opcion recomendada usando Make
-make setup
-
-# O manual:
 python -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Ejecutar Tests:
-
-``` bash
+source .venv/bin/activate   # En Windows: .venv\Scripts\activate
+make install
 make test
 ```
+
+Los scripts de `scripts/` esperan el entorno virtual en `.venv`.
+
 ## Documentación
 
-``` bash
+```bash
 mkdocs serve
 ```
 
-Luego abre http://127.0.0.1:8000 en tu navegador.
+Luego abre `http://127.0.0.1:8000`.
 
-## Contribución
+## Antes de subir cambios
 
-``` bash
+```bash
 make format
 make lint
+make test
 ```
+
+El CI ejecuta black, flake8 y pytest en cada push y pull request.
 
 ## Licencia
 
-MIT License
+[MIT](LICENSE)
